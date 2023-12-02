@@ -31,11 +31,7 @@ function checkIfGameIsPossible(line) {
 
   const choices = getChoices(line, id);
 
-  if (checkIfPossible(choices)) {
-    return id;
-  }
-
-  return undefined;
+  return checkIfPossible(choices);
 }
 
 function getId(line) {
@@ -66,22 +62,27 @@ function getChoices(line, id) {
 }
 
 function checkIfPossible(choices) {
-  let possible = true;
-  const maxValues = {
-    green: 13,
-    red: 12,
-    blue: 14,
+  let maxValues = {
+    green: 0,
+    red: 0,
+    blue: 0,
   };
 
-  for (const [firstKey, firstValue] of Object.entries(choices)) {
+  for (const [_, firstValue] of Object.entries(choices)) {
     for (const [secondKey, secondValue] of Object.entries(maxValues)) {
       if (firstValue[secondKey] > secondValue) {
-        possible = false;
+        maxValues[secondKey] = firstValue[secondKey];
       }
     }
   }
 
-  return possible;
+  let result = 1;
+
+  Object.entries(maxValues).forEach(([_, value]) => {
+    result = result * value;
+  });
+
+  return result;
 }
 
 function getNumberFromString(string) {
