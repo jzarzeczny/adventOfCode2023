@@ -18,7 +18,6 @@ async function main() {
     }
   }
 
-
   const finalValue = possibleGameIndexes.reduce((val, acc) => {
     return acc + val;
   }, 0);
@@ -49,7 +48,7 @@ function getChoices(line, id) {
 
   const target = line.split(":")[1];
   const games = target.split(";");
- 
+
   games.forEach((game, index) => {
     const tries = game.split(",");
     tries.forEach((t) => {
@@ -60,9 +59,9 @@ function getChoices(line, id) {
       const color = t.split(" ")[2];
 
       obj[index][color] = number;
-   
+    });
   });
- 
+
   return obj;
 }
 
